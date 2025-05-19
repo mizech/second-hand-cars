@@ -38,11 +38,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHost
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun NavView(viewModel: MainViewModel) {
+    val navController = rememberNavController()
+
     var isActionMenuShown = remember {
         mutableStateOf(false)
     }
@@ -62,79 +68,34 @@ fun NavView(viewModel: MainViewModel) {
                 DropdownMenuItem(text = {
                     Text(text = "Car list")
                 }, onClick = {
-
+                    navController.navigate(route = Routes.CarList.name)
                 })
                 DropdownMenuItem(text = {
                     Text(text = "Create car")
                 }, onClick = {
-
+                    navController.navigate(route = Routes.CreateCar.name)
                 })
                 DropdownMenuItem(text = {
                     Text(text = "Create vendor")
                 }, onClick = {
-
+                    navController.navigate(route = Routes.CreateVendor.name)
                 })
             }
         }, title = {
             Text(text = "Second-hand cars")
         })
     }) {
-        val isDropDownExpanded = remember {
-            mutableStateOf(false)
-        }
-
-        val itemPosition = remember {
-            mutableStateOf(0)
-        }
-
-        var usernames = remember {
-            mutableListOf<String>("")
-        }
-
-        LaunchedEffect(key1 = true) {
-            var temp = viewModel.getAllVendors()
-            temp.forEach { vendor ->
-                usernames.add(vendor.name)
+        NavHost(navController = navController,
+            startDestination = Routes.CreateCar.name) {
+            composable(route = Routes.CreateCar.name) {
+                CreateCar(viewModel = viewModel)
             }
-        }
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            Box {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.clickable {
-                        isDropDownExpanded.value = true
-                    }
-                ) {
-                    Text(text = usernames[itemPosition.value])
-                    Image(
-                        painter = painterResource(id = R.drawable.baseline_keyboard_arrow_down_24),
-                        contentDescription = "DropDown Icon"
-                    )
-                }
-                DropdownMenu(
-                    expanded = isDropDownExpanded.value,
-                    onDismissRequest = {
-                        isDropDownExpanded.value = false
-                    }) {
-                    usernames.forEachIndexed { index, username ->
-                        DropdownMenuItem(text = {
-                            Text(text = username)
-                        },
-                            onClick = {
-                                isDropDownExpanded.value = false
-                                itemPosition.value = index
-                            })
-                    }
-                }
+            composable(route = Routes.CreateVendor.name) {
+                CreateVendor()
             }
-
+            composable(route = Routes.CarList.name) {
+                CarList()
+            }
         }
     }
 }
