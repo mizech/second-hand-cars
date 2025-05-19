@@ -1,4 +1,4 @@
-package com.example.secondhandcars
+package com.example.secondhandcars.models
 
 import androidx.room.Dao
 import androidx.room.Insert

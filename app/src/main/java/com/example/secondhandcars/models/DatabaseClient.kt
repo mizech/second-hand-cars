@@ -1,4 +1,4 @@
-package com.example.secondhandcars
+package com.example.secondhandcars.models
 
 import android.content.Context
 import androidx.room.Room

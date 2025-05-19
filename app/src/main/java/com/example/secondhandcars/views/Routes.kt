@@ -1,4 +1,4 @@
-package com.example.secondhandcars
+package com.example.secondhandcars.views
 
 sealed class Routes(val name: String) {
     object CarList: Routes(name = "car_list")

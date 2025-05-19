@@ -1,4 +1,4 @@
-package com.example.secondhandcars
+package com.example.secondhandcars.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -18,6 +18,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import com.example.secondhandcars.viewmodels.MainViewModel
+import com.example.secondhandcars.R
+import com.example.secondhandcars.models.Vendor
 
 @Composable
 fun CreateCar(viewModel: MainViewModel) {
@@ -51,7 +54,7 @@ fun CreateCar(viewModel: MainViewModel) {
                     isDropDownExpanded.value = true
                 }
             ) {
-                Text(text = vendors[itemPosition.value].name)
+                Text(text = vendors[itemPosition.intValue].name)
                 Image(
                     painter = painterResource(id = R.drawable.baseline_keyboard_arrow_down_24),
                     contentDescription = "DropDown Icon"
@@ -68,7 +71,7 @@ fun CreateCar(viewModel: MainViewModel) {
                     },
                         onClick = {
                             isDropDownExpanded.value = false
-                            itemPosition.value = index
+                            itemPosition.intValue = index
                         })
                 }
             }

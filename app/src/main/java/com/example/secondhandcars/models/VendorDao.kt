@@ -1,10 +1,10 @@
-package com.example.secondhandcars
+package com.example.secondhandcars.models
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import kotlinx.coroutines.flow.Flow
+import com.example.secondhandcars.models.VendorWithCars
 
 @Dao
 interface VendorDao {

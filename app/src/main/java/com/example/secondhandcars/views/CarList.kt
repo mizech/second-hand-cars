@@ -1,4 +1,4 @@
-package com.example.secondhandcars
+package com.example.secondhandcars.views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -13,12 +13,12 @@ import androidx.compose.ui.unit.sp
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CreateVendor() {
+fun CarList() {
     Scaffold {
         Column(verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()) {
-            Text(text = "Create Vendor-View", fontSize = 32.sp)
+            Text(text = "Car List-View", fontSize = 32.sp)
         }
     }
 }
