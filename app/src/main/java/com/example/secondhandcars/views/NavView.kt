@@ -72,7 +72,7 @@ fun NavView(viewModel: MainViewModel) {
                 CreateVendor()
             }
             composable(route = Routes.CarList.name) {
-                CarList()
+                CarList(viewModel = viewModel)
             }
         }
     }

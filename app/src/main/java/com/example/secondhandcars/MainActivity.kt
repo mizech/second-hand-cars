@@ -15,12 +15,14 @@ import com.example.secondhandcars.views.NavView
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val database = DatabaseClient(context = applicationContext)
-        val dao = database.instance.vendorDao()
+        val vendorDao = database.instance.vendorDao()
+        var carDao = database.instance.carDao()
+
         val viewModel by viewModels<MainViewModel>(
             factoryProducer = {
                 object: ViewModelProvider.Factory {
                     override fun <T: ViewModel> create(modelClass: Class<T>): T {
-                        return MainViewModel(dao = dao) as T
+                        return MainViewModel(vendorDao = vendorDao, carDao = carDao) as T
                     }
                 }
             }
