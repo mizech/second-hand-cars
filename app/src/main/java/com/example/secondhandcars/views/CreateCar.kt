@@ -49,7 +49,7 @@ fun CreateCar(viewModel: MainViewModel, navController: NavController) {
     }
 
     var givenPrice = remember {
-        mutableDoubleStateOf(0.0)
+        mutableStateOf("")
     }
 
     val selectedVendor = remember {
@@ -75,15 +75,15 @@ fun CreateCar(viewModel: MainViewModel, navController: NavController) {
         }, placeholder = {
             Text(text = "Insert car's name")
         }, modifier = Modifier.padding(bottom = 25.dp))
-        OutlinedTextField(value = givenPrice.doubleValue.toString(), onValueChange = { newVal: String ->
-            givenPrice.doubleValue = newVal.toDoubleOrNull() ?: 0.0
+        OutlinedTextField(value = givenPrice.value, onValueChange = { newVal: String ->
+            givenPrice.value = newVal
         }, placeholder = {
             Text(text = "Insert country")
         }, modifier = Modifier.padding(bottom = 25.dp),
             trailingIcon = {
                 Icon(Icons.Default.Clear, contentDescription = "",
                     modifier = Modifier.clickable {
-                        givenPrice.value = 0.0
+                        givenPrice.value = ""
                     })
             })
         Box {
@@ -118,7 +118,7 @@ fun CreateCar(viewModel: MainViewModel, navController: NavController) {
         }
         OutlinedButton(onClick = {
             val newCar = Car(name = givenName.value,
-                price = givenPrice.doubleValue.toDouble(),
+                price = givenPrice.value.toDoubleOrNull() ?: 0.0,
                 vid = selectedVendor.value.vid)
             rcScope.launch {
                 viewModel.insertCar(newCar = newCar)
