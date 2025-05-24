@@ -66,7 +66,8 @@ fun NavView(viewModel: MainViewModel) {
         NavHost(navController = navController,
             startDestination = Routes.CreateCar.name) {
             composable(route = Routes.CreateCar.name) {
-                CreateCar(viewModel = viewModel)
+                CreateCar(viewModel = viewModel,
+                    navController = navController)
             }
             composable(route = Routes.CreateVendor.name) {
                 CreateVendor()

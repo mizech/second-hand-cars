@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -26,6 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.Navigator
 import com.example.secondhandcars.viewmodels.MainViewModel
 import com.example.secondhandcars.R
 import com.example.secondhandcars.models.Car
@@ -34,7 +39,7 @@ import kotlinx.coroutines.launch
 import kotlin.Double
 
 @Composable
-fun CreateCar(viewModel: MainViewModel) {
+fun CreateCar(viewModel: MainViewModel, navController: NavController) {
     val isDropDownExpanded = remember {
         mutableStateOf(false)
     }
@@ -74,7 +79,13 @@ fun CreateCar(viewModel: MainViewModel) {
             givenPrice.doubleValue = newVal.toDoubleOrNull() ?: 0.0
         }, placeholder = {
             Text(text = "Insert country")
-        }, modifier = Modifier.padding(bottom = 25.dp))
+        }, modifier = Modifier.padding(bottom = 25.dp),
+            trailingIcon = {
+                Icon(Icons.Default.Clear, contentDescription = "",
+                    modifier = Modifier.clickable {
+                        givenPrice.value = 0.0
+                    })
+            })
         Box {
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -111,6 +122,7 @@ fun CreateCar(viewModel: MainViewModel) {
                 vid = selectedVendor.value.vid)
             rcScope.launch {
                 viewModel.insertCar(newCar = newCar)
+                navController.navigate(Routes.CarList.name)
             }
         }) {
             Text(text = "Insert Car")
