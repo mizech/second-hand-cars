@@ -62,7 +62,7 @@ fun NavView(viewModel: MainViewModel) {
         }, title = {
             Text(text = "Second-hand cars")
         })
-    }) {
+    }) { innerPadding ->
         NavHost(navController = navController,
             startDestination = Routes.CreateCar.name) {
             composable(route = Routes.CreateCar.name) {
@@ -73,7 +73,7 @@ fun NavView(viewModel: MainViewModel) {
                 CreateVendor()
             }
             composable(route = Routes.CarList.name) {
-                CarList(viewModel = viewModel)
+                CarList(viewModel = viewModel, innerPadding = innerPadding)
             }
         }
     }
