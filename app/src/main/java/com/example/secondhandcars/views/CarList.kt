@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -22,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.secondhandcars.models.Car
@@ -48,6 +52,12 @@ fun CarList(viewModel: MainViewModel, innerPadding: PaddingValues) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)
                 .padding(vertical = innerPadding.calculateTopPadding())) {
+            Text(text = "Available cars",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                textAlign = TextAlign.Start)
             Row(horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Name",
@@ -60,12 +70,18 @@ fun CarList(viewModel: MainViewModel, innerPadding: PaddingValues) {
             }
             LazyColumn {
                 items(carList) {
-                    Row(horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier.fillMaxWidth()) {
-                        Text(text = it.name,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(bottom = 16.dp))
-                        Text(text = format.format(it.price))
+                    Card(modifier = Modifier.padding(bottom = 12.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
+                        Row(horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(vertical = 12.dp)
+                                .padding(horizontal = 10.dp)) {
+                            Text(text = it.name,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier)
+                            Text(text = format.format(it.price),
+                                modifier = Modifier)
+                        }
                     }
                 }
             }

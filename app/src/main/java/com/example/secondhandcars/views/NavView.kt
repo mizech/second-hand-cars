@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -60,7 +61,7 @@ fun NavView(viewModel: MainViewModel) {
                 })
             }
         }, title = {
-            Text(text = "Second-hand cars")
+            Text(text = "Second-hand cars", fontSize = 24.sp)
         })
     }) { innerPadding ->
         NavHost(navController = navController,
