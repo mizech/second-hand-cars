@@ -2,6 +2,7 @@ package com.example.secondhandcars.views
 
 import android.annotation.SuppressLint
 import android.icu.util.Currency
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,13 +29,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.secondhandcars.models.Car
 import com.example.secondhandcars.viewmodels.MainViewModel
 import java.text.NumberFormat
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CarList(viewModel: MainViewModel, innerPadding: PaddingValues) {
+fun CarList(navController: NavController,
+            viewModel: MainViewModel,
+            innerPadding: PaddingValues) {
     val carList = remember {
         mutableStateListOf<Car>()
     }
@@ -70,7 +74,9 @@ fun CarList(viewModel: MainViewModel, innerPadding: PaddingValues) {
             }
             LazyColumn {
                 items(carList) {
-                    Card(modifier = Modifier.padding(bottom = 12.dp),
+                    Card(modifier = Modifier.padding(bottom = 12.dp).clickable {
+                        navController.navigate(Routes.CarDetails.name)
+                    },
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
                         Row(horizontalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier.fillMaxWidth()

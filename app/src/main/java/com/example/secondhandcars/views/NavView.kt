@@ -74,7 +74,12 @@ fun NavView(viewModel: MainViewModel) {
                 CreateVendor()
             }
             composable(route = Routes.CarList.name) {
-                CarList(viewModel = viewModel, innerPadding = innerPadding)
+                CarList(navController = navController,
+                        viewModel = viewModel,
+                        innerPadding = innerPadding)
+            }
+            composable(route = Routes.CarDetails.name) {
+                CarDetails()
             }
         }
     }
