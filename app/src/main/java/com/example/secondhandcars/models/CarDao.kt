@@ -1,6 +1,7 @@
 package com.example.secondhandcars.models
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
@@ -14,4 +15,7 @@ interface CarDao {
 
     @Query("SELECT * FROM car WHERE cid = :id")
     suspend fun getCarByID(id: Long): Car
+
+    @Query("DELETE FROM car WHERE cid = :id")
+    suspend fun deleteCarByID(id: Long)
 }

@@ -81,7 +81,8 @@ fun NavView(viewModel: MainViewModel) {
             composable(route = Routes.CarDetails.name) { entry ->
                 val cId = entry.arguments?.getString("cId")
                 cId?.let { cId ->
-                    CarDetails(viewModel = viewModel, cId = cId)
+                    CarDetails(viewModel = viewModel,
+                        navController = navController, cId = cId)
                 }
             }
         }

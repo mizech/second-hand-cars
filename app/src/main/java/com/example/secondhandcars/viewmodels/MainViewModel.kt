@@ -22,4 +22,8 @@ class MainViewModel(val vendorDao: VendorDao, val carDao: CarDao): ViewModel() {
     suspend fun insertCar(newCar: Car) {
         return carDao.insert(car = newCar)
     }
+
+    suspend fun deleteCarById(id: Long) {
+        return carDao.deleteCarByID(id = id)
+    }
 }
