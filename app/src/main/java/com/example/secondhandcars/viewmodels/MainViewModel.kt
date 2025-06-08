@@ -15,6 +15,10 @@ class MainViewModel(val vendorDao: VendorDao, val carDao: CarDao): ViewModel() {
         return carDao.getAllCars()
     }
 
+    suspend fun getCarByID(id: Long): Car {
+        return carDao.getCarByID(id = id)
+    }
+
     suspend fun insertCar(newCar: Car) {
         return carDao.insert(car = newCar)
     }

@@ -1,7 +1,6 @@
 package com.example.secondhandcars.views
 
 import android.annotation.SuppressLint
-import android.icu.util.Currency
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,8 +13,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -31,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.secondhandcars.models.Car
+import com.example.secondhandcars.utils.Formatter
 import com.example.secondhandcars.viewmodels.MainViewModel
-import java.text.NumberFormat
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -43,15 +40,13 @@ fun CarList(navController: NavController,
         mutableStateListOf<Car>()
     }
 
-    val format = NumberFormat.getCurrencyInstance()
-    format.maximumFractionDigits = 2
-    format.currency = java.util.Currency.getInstance("EUR")
+    val formatter = Formatter()
 
     LaunchedEffect(key1 = true) {
         carList.addAll(viewModel.getAllCars())
     }
 
-    Scaffold {
+    Scaffold { innerPadding ->
         Column(verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)
@@ -75,7 +70,8 @@ fun CarList(navController: NavController,
             LazyColumn {
                 items(carList) {
                     Card(modifier = Modifier.padding(bottom = 12.dp).clickable {
-                        navController.navigate(Routes.CarDetails.name)
+                        navController.navigate(Routes.CarDetails.name
+                            .replace(oldValue = "{cId}", newValue = it.cid.toString()))
                     },
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
                         Row(horizontalArrangement = Arrangement.SpaceBetween,
@@ -85,7 +81,7 @@ fun CarList(navController: NavController,
                             Text(text = it.name,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier)
-                            Text(text = format.format(it.price),
+                            Text(text = formatter.formatDouble(value = it.price),
                                 modifier = Modifier)
                         }
                     }

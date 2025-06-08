@@ -11,4 +11,7 @@ interface CarDao {
 
     @Query("SELECT * FROM car")
     suspend fun getAllCars(): List<Car>
+
+    @Query("SELECT * FROM car WHERE cid = :id")
+    suspend fun getCarByID(id: Long): Car
 }

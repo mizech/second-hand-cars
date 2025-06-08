@@ -78,8 +78,11 @@ fun NavView(viewModel: MainViewModel) {
                         viewModel = viewModel,
                         innerPadding = innerPadding)
             }
-            composable(route = Routes.CarDetails.name) {
-                CarDetails()
+            composable(route = Routes.CarDetails.name) { entry ->
+                val cId = entry.arguments?.getString("cId")
+                cId?.let { cId ->
+                    CarDetails(viewModel = viewModel, cId = cId)
+                }
             }
         }
     }
