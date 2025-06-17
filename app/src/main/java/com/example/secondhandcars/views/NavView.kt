@@ -65,7 +65,7 @@ fun NavView(viewModel: MainViewModel) {
         })
     }) { innerPadding ->
         NavHost(navController = navController,
-            startDestination = Routes.CreateCar.name) {
+            startDestination = Routes.CarList.name) {
             composable(route = Routes.CreateCar.name) {
                 CreateCar(viewModel = viewModel,
                     navController = navController)
