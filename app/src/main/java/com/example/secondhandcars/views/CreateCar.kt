@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.DropdownMenu
@@ -28,6 +29,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.Navigator
@@ -78,14 +80,14 @@ fun CreateCar(viewModel: MainViewModel, navController: NavController) {
         OutlinedTextField(value = givenPrice.value, onValueChange = { newVal: String ->
             givenPrice.value = newVal
         }, placeholder = {
-            Text(text = "Insert country")
+            Text(text = "Insert price")
         }, modifier = Modifier.padding(bottom = 25.dp),
             trailingIcon = {
                 Icon(Icons.Default.Clear, contentDescription = "",
                     modifier = Modifier.clickable {
                         givenPrice.value = ""
                     })
-            })
+            }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
         Box {
             Row(
                 horizontalArrangement = Arrangement.Center,

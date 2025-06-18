@@ -31,6 +31,7 @@ import com.example.secondhandcars.models.Car
 import com.example.secondhandcars.utils.Formatter
 import com.example.secondhandcars.viewmodels.MainViewModel
 import kotlinx.coroutines.launch
+import kotlin.system.measureTimeMillis
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,4 +105,5 @@ fun CarDetails(viewModel: MainViewModel, cId: String,
         }
     }
 }
+
 
