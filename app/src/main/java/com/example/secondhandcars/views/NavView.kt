@@ -52,7 +52,7 @@ fun NavView(viewModel: MainViewModel) {
                 DropdownMenuItem(text = {
                     Text(text = "Create car")
                 }, onClick = {
-                    navController.navigate(route = Routes.CreateCar.name)
+                    navController.navigate(route = Routes.CarForm.name.replace("{cId}", ""))
                 })
                 DropdownMenuItem(text = {
                     Text(text = "Create vendor")
@@ -66,9 +66,11 @@ fun NavView(viewModel: MainViewModel) {
     }) { innerPadding ->
         NavHost(navController = navController,
             startDestination = Routes.CarList.name) {
-            composable(route = Routes.CreateCar.name) {
-                CreateCar(viewModel = viewModel,
-                    navController = navController)
+            composable(route = Routes.CarForm.name) { entry ->
+                val cId = entry.arguments?.getString("cId") ?: ""
+                CarForm(viewModel = viewModel,
+                    navController = navController,
+                    cId = cId)
             }
             composable(route = Routes.CreateVendor.name) {
                 CreateVendor()

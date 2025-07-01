@@ -18,11 +18,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableDoubleStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -32,16 +29,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.Navigator
 import com.example.secondhandcars.viewmodels.MainViewModel
 import com.example.secondhandcars.R
 import com.example.secondhandcars.models.Car
 import com.example.secondhandcars.models.Vendor
 import kotlinx.coroutines.launch
-import kotlin.Double
 
 @Composable
-fun CreateCar(viewModel: MainViewModel, navController: NavController) {
+fun CarForm(viewModel: MainViewModel, navController: NavController, cId: String = "") {
     val isDropDownExpanded = remember {
         mutableStateOf(false)
     }
@@ -62,8 +57,20 @@ fun CreateCar(viewModel: MainViewModel, navController: NavController) {
         mutableListOf<Vendor>(Vendor(name = "", country = ""))
     }
 
+    var car = remember {
+        mutableStateOf(Car(name = "", price = 0.0, vid = 0))
+    }
+
+    var isExistingCar = remember {
+        mutableStateOf(false)
+    }
+
     LaunchedEffect(key1 = true) {
         vendors.addAll(viewModel.getAllVendors())
+        if (cId != "") {
+            car.value = viewModel.getCarByID(id = cId.toLong())
+            isExistingCar.value = true
+        }
     }
 
     val rcScope = rememberCoroutineScope()
@@ -119,12 +126,23 @@ fun CreateCar(viewModel: MainViewModel, navController: NavController) {
             }
         }
         OutlinedButton(onClick = {
-            val newCar = Car(name = givenName.value,
-                price = givenPrice.value.toDoubleOrNull() ?: 0.0,
-                vid = selectedVendor.value.vid)
-            rcScope.launch {
-                viewModel.insertCar(newCar = newCar)
-                navController.navigate(Routes.CarList.name)
+            if (isExistingCar.value == false) {
+                car.value.name = givenName.value
+                car.value.price = givenPrice.value.toDoubleOrNull() ?: 0.0
+                car.value.vid = selectedVendor.value.vid
+                rcScope.launch {
+                    viewModel.insert(newCar = car.value)
+                    navController.navigate(Routes.CarList.name)
+                }
+            } else {
+                println("Is existing car.")
+                rcScope.launch {
+                    car.value.name = givenName.value
+                    car.value.price = givenPrice.value.toDoubleOrNull() ?: 0.0
+                    car.value.vid = selectedVendor.value.vid
+                    viewModel.update(car = car.value)
+                    navController.navigate(Routes.CarList.name)
+                }
             }
         }) {
             Text(text = "Insert Car")

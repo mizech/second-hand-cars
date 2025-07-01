@@ -4,11 +4,15 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface CarDao {
     @Insert
     suspend fun insert(car: Car)
+
+    @Query("UPDATE car SET name=:name, price=:price, vid=:vid WHERE cid=:cid")
+    suspend fun update(name: String, price: Double, vid: Long, cid: Long)
 
     @Query("SELECT * FROM car")
     suspend fun getAllCars(): List<Car>

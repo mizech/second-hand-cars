@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,7 +29,6 @@ import com.example.secondhandcars.models.Car
 import com.example.secondhandcars.utils.Formatter
 import com.example.secondhandcars.viewmodels.MainViewModel
 import kotlinx.coroutines.launch
-import kotlin.system.measureTimeMillis
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -94,7 +91,7 @@ fun CarDetails(viewModel: MainViewModel, cId: String,
 
         Text(text = car.value.name, fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier)
+            modifier = Modifier.padding(top = 60.dp))
         Text(text = formatter.formatDouble(value = car.value.price),
             fontSize = 24.sp)
         Spacer(modifier = Modifier)
@@ -102,6 +99,13 @@ fun CarDetails(viewModel: MainViewModel, cId: String,
             isDeleteActive.value = true
         }) {
             Text(text = "Delete", fontSize = 24.sp)
+        }
+        Button(onClick = {
+            navController.navigate(Routes.CarForm.name.replace(
+                                                oldValue = "{cId}",
+                                                newValue = car.value.cid.toString()))
+        }) {
+            Text(text = "Edit", fontSize = 24.sp)
         }
     }
 }
