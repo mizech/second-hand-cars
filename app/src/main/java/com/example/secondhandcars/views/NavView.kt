@@ -57,7 +57,7 @@ fun NavView(viewModel: MainViewModel) {
                 DropdownMenuItem(text = {
                     Text(text = "Create vendor")
                 }, onClick = {
-                    navController.navigate(route = Routes.CreateVendor.name)
+                    navController.navigate(route = Routes.VendorForm.name)
                 })
             }
         }, title = {
@@ -72,13 +72,13 @@ fun NavView(viewModel: MainViewModel) {
                     navController = navController,
                     cId = cId)
             }
-            composable(route = Routes.CreateVendor.name) {
-                CreateVendor()
-            }
             composable(route = Routes.CarList.name) {
                 CarList(navController = navController,
                         viewModel = viewModel,
                         innerPadding = innerPadding)
+            }
+            composable(route = Routes.VendorForm.name) {
+                VendorForm()
             }
             composable(route = Routes.CarDetails.name) { entry ->
                 val cId = entry.arguments?.getString("cId")

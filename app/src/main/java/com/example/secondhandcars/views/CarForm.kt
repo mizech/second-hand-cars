@@ -69,6 +69,14 @@ fun CarForm(viewModel: MainViewModel, navController: NavController, cId: String 
         vendors.addAll(viewModel.getAllVendors())
         if (cId != "") {
             car.value = viewModel.getCarByID(id = cId.toLong())
+            givenName.value = car.value.name
+            givenPrice.value = car.value.price.toString()
+
+            val vendor = vendors.find { it.vid == car.value.vid }
+            vendor?.let {
+                selectedVendor.value = it
+            }
+
             isExistingCar.value = true
         }
     }
@@ -135,7 +143,6 @@ fun CarForm(viewModel: MainViewModel, navController: NavController, cId: String 
                     navController.navigate(Routes.CarList.name)
                 }
             } else {
-                println("Is existing car.")
                 rcScope.launch {
                     car.value.name = givenName.value
                     car.value.price = givenPrice.value.toDoubleOrNull() ?: 0.0
@@ -145,7 +152,7 @@ fun CarForm(viewModel: MainViewModel, navController: NavController, cId: String 
                 }
             }
         }) {
-            Text(text = "Insert Car")
+            Text(text = "Submit")
         }
         Spacer(modifier = Modifier.weight(1f))
     }
