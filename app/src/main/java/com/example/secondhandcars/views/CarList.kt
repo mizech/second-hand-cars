@@ -33,8 +33,8 @@ import com.example.secondhandcars.viewmodels.MainViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CarList(navController: NavController,
-            viewModel: MainViewModel,
+fun CarList(viewModel: MainViewModel,
+            navController: NavController,
             innerPadding: PaddingValues) {
     val carList = remember {
         mutableStateListOf<Car>()

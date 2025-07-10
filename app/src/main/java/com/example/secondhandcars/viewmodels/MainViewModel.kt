@@ -23,6 +23,10 @@ class MainViewModel(val vendorDao: VendorDao, val carDao: CarDao): ViewModel() {
         carDao.insert(car = newCar)
     }
 
+    suspend fun insert(newVendor: Vendor) {
+        vendorDao.insert(vendor = newVendor)
+    }
+
     suspend fun update(car: Car) {
         carDao.update(name = car.name,
                         price = car.price,
