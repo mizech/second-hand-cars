@@ -34,10 +34,16 @@ fun VendorForm(viewModel: MainViewModel, navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally) {
         OutlinedTextField(value = currName.value, onValueChange = {
             currName.value = it
-        }, modifier = Modifier.padding(bottom = 25.dp))
+        }, modifier = Modifier.padding(bottom = 25.dp),
+            placeholder = {
+                Text("Insert vendor's name")
+            })
         OutlinedTextField(value = currCountry.value, onValueChange = {
             currCountry.value = it
-        }, modifier = Modifier.padding(bottom = 25.dp))
+        }, modifier = Modifier.padding(bottom = 25.dp),
+            placeholder = {
+                Text("Insert vendor's country")
+            })
         OutlinedButton(onClick = {
             if (currName.value.isEmpty() || currCountry.value.isEmpty()) {
                 return@OutlinedButton
