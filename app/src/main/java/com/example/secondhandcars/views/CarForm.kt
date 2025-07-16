@@ -140,7 +140,7 @@ fun CarForm(viewModel: MainViewModel, navController: NavController, cId: String 
                 car.value.vid = selectedVendor.value.vid
                 rcScope.launch {
                     viewModel.insert(newCar = car.value)
-                    navController.navigate(Routes.CarList.name)
+                    navController.navigate(Routes.CarsList.name)
                 }
             } else {
                 rcScope.launch {
@@ -148,7 +148,7 @@ fun CarForm(viewModel: MainViewModel, navController: NavController, cId: String 
                     car.value.price = givenPrice.value.toDoubleOrNull() ?: 0.0
                     car.value.vid = selectedVendor.value.vid
                     viewModel.update(car = car.value)
-                    navController.navigate(Routes.CarList.name)
+                    navController.navigate(Routes.CarsList.name)
                 }
             }
         }) {

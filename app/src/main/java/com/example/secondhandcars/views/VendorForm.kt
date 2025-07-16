@@ -52,7 +52,7 @@ fun VendorForm(viewModel: MainViewModel, navController: NavController) {
             cScope.launch {
                 viewModel.insert(newVendor = Vendor(name = currName.value,
                     country = currCountry.value))
-                navController.navigate(Routes.CarList.name)
+                navController.navigate(Routes.CarsList.name)
             }
         }) {
             Text(text = "Submit")

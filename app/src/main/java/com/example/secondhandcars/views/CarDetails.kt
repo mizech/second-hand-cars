@@ -2,6 +2,7 @@ package com.example.secondhandcars.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,7 +50,7 @@ fun CarDetails(viewModel: MainViewModel, cId: String,
     fun deleteCar() {
         coroutineScope.launch {
             viewModel.deleteCarById(id = cId.toLong())
-            navController.navigate(Routes.CarList.name)
+            navController.navigate(Routes.CarsList.name)
         }
     }
 
@@ -91,21 +92,29 @@ fun CarDetails(viewModel: MainViewModel, cId: String,
 
         Text(text = car.value.name, fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 60.dp))
+            modifier = Modifier.padding(top = 28.dp))
         Text(text = formatter.formatDouble(value = car.value.price),
             fontSize = 24.sp)
         Spacer(modifier = Modifier)
-        Button(onClick = {
-            isDeleteActive.value = true
-        }) {
-            Text(text = "Delete", fontSize = 24.sp)
-        }
-        Button(onClick = {
-            navController.navigate(Routes.CarForm.name.replace(
-                                                oldValue = "{cId}",
-                                                newValue = car.value.cid.toString()))
-        }) {
-            Text(text = "Edit", fontSize = 24.sp)
+
+        Row {
+            Spacer(modifier = Modifier.weight(1f))
+            Button(onClick = {
+                isDeleteActive.value = true
+            }, modifier = Modifier.weight(2f)) {
+                Text(text = "Delete",
+                    fontSize = 24.sp)
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(onClick = {
+                navController.navigate(Routes.CarForm.name.replace(
+                    oldValue = "{cId}",
+                    newValue = car.value.cid.toString()))
+            }, modifier = Modifier.weight(2f)) {
+                Text(text = "Edit",
+                    fontSize = 24.sp)
+            }
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
