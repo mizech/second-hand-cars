@@ -34,8 +34,7 @@ import com.example.secondhandcars.viewmodels.MainViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CarList(viewModel: MainViewModel,
-            navController: NavController,
-            innerPadding: PaddingValues) {
+            navController: NavController) {
     val carList = remember {
         mutableStateListOf<Car>()
     }
@@ -55,7 +54,7 @@ fun CarList(viewModel: MainViewModel,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.fillMaxWidth()
-                    .padding(bottom = 16.dp),
+                    .padding(bottom = 16.dp, top = 80.dp),
                 textAlign = TextAlign.Start)
             Row(horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()) {
