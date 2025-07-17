@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.secondhandcars.models.Car
 import com.example.secondhandcars.models.Vendor
 import com.example.secondhandcars.viewmodels.MainViewModel
 
