@@ -67,7 +67,7 @@ fun VendorsList(viewModel: MainViewModel,
                 items(items = vendorsList) {
                     Card(modifier = Modifier.padding(bottom = 12.dp).clickable {
                         navController.navigate(Routes.VendorDetails.name.replace(
-                            oldValue = "vId",
+                            oldValue = "{vId}",
                             newValue = it.vid.toString()))
                     },
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {

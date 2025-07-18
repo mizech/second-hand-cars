@@ -15,8 +15,10 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,7 +42,11 @@ fun VendorDetails(viewModel: MainViewModel, vId: String,
         var isDeleteActive = remember {
             mutableStateOf(false)
         }
-
+        LaunchedEffect(key1 = true) {
+            vendor.value = viewModel.getVendorByID(id = vId.toLong())
+        }
+        // Todo: Implement Delete-functionality
+        // Todo: Implement Edit-functionality
         if (isDeleteActive.value == true) {
             BasicAlertDialog(onDismissRequest = {
                 isDeleteActive.value = false
@@ -48,7 +54,7 @@ fun VendorDetails(viewModel: MainViewModel, vId: String,
                 Surface(shape = RoundedCornerShape(size = 12.dp)) {
                     Column(modifier = Modifier.padding(20.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(text = "Car becomes deleted.",
+                        Text(text = "Vendor becomes deleted.",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold)
                         Text(text = "Are you sure?",
@@ -75,7 +81,7 @@ fun VendorDetails(viewModel: MainViewModel, vId: String,
         Text(text = vendor.value.name, fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 28.dp))
-        Text(text = "",
+        Text(text = vendor.value.country,
             fontSize = 24.sp)
         Spacer(modifier = Modifier)
 
