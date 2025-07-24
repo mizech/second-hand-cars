@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.secondhandcars.models.Vendor
 import com.example.secondhandcars.viewmodels.MainViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,6 +37,8 @@ fun VendorDetails(viewModel: MainViewModel, vId: String,
     Column(verticalArrangement = Arrangement.SpaceAround,
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier.fillMaxSize()) {
+        val cscope = rememberCoroutineScope()
+
         var vendor = remember {
             mutableStateOf(Vendor(vid = 0, name = "", country = ""))
         }
@@ -45,7 +48,7 @@ fun VendorDetails(viewModel: MainViewModel, vId: String,
         LaunchedEffect(key1 = true) {
             vendor.value = viewModel.getVendorByID(id = vId.toLong())
         }
-        // Todo: Implement Delete-functionality
+
         // Todo: Implement Edit-functionality
         if (isDeleteActive.value == true) {
             BasicAlertDialog(onDismissRequest = {
@@ -54,14 +57,17 @@ fun VendorDetails(viewModel: MainViewModel, vId: String,
                 Surface(shape = RoundedCornerShape(size = 12.dp)) {
                     Column(modifier = Modifier.padding(20.dp),
                         horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(text = "Vendor becomes deleted.",
+                        Text(text = "Vendor and all related cars become deleted.",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold)
                         Text(text = "Are you sure?",
                             fontSize = 18.sp)
                         Spacer(modifier = Modifier.padding(bottom = 12.dp))
                         OutlinedButton(onClick = {
-
+                            cscope.launch {
+                                viewModel.deleteVendorById(id = vendor.value.vid)
+                                navController.navigate(Routes.VendorsList.name)
+                            }
                         }, modifier = Modifier.fillMaxWidth()) {
                             Text(text = "Delete",
                                 color = Color.Red,
@@ -106,3 +112,4 @@ fun VendorDetails(viewModel: MainViewModel, vId: String,
         }
     }
 }
+

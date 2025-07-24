@@ -41,4 +41,8 @@ class MainViewModel(val vendorDao: VendorDao, val carDao: CarDao): ViewModel() {
     suspend fun deleteCarById(id: Long) {
         carDao.deleteCarByID(id = id)
     }
+
+    suspend fun deleteVendorById(id: Long) {
+        vendorDao.deleteVendorByID(id = id)
+    }
 }

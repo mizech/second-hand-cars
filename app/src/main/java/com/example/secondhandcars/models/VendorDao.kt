@@ -20,4 +20,7 @@ interface VendorDao {
 
     @Query("SELECT * FROM vendor WHERE vid = :id")
     suspend fun getVendorByID(id: Long): Vendor
+
+    @Query("DELETE FROM vendor WHERE vid = :id")
+    suspend fun deleteVendorByID(id: Long)
 }

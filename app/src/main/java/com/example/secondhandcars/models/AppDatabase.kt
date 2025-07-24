@@ -7,9 +7,8 @@ import com.example.secondhandcars.models.CarDao
 import com.example.secondhandcars.models.Vendor
 import com.example.secondhandcars.models.VendorDao
 
-@Database(version = 2, entities = [Vendor::class,  Car::class])
+@Database(version = 3, entities = [Vendor::class,  Car::class])
 abstract class AppDatabase: RoomDatabase() {
-
     abstract fun vendorDao(): VendorDao
 
     abstract fun carDao(): CarDao
