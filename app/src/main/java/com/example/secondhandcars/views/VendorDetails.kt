@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VendorDetails(viewModel: MainViewModel, vId: String,
+fun VendorDetails(viewModel: MainViewModel, vId: String = "",
                   navController: NavController) {
     Column(verticalArrangement = Arrangement.SpaceAround,
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -101,9 +101,9 @@ fun VendorDetails(viewModel: MainViewModel, vId: String,
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(onClick = {
-                navController.navigate(Routes.CarForm.name.replace(
+                navController.navigate(Routes.VendorForm.name.replace(
                     oldValue = "{vId}",
-                    newValue = vendor.value.vid.toString()))
+                    newValue = vId))
             }, modifier = Modifier.weight(2f)) {
                 Text(text = "Edit",
                     fontSize = 24.sp)

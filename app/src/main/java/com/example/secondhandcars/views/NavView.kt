@@ -85,7 +85,8 @@ fun NavView(viewModel: MainViewModel) {
                 VendorsList(viewModel = viewModel,
                     navController = navController)
             }
-            composable(route = Routes.VendorForm.name) {
+            composable(route = Routes.VendorForm.name) { entry ->
+                val vId = entry.arguments?.getString("vId") ?: ""
                 VendorForm(viewModel = viewModel,
                             navController = navController)
             }
