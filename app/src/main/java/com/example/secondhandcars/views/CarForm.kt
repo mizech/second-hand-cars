@@ -36,7 +36,9 @@ import com.example.secondhandcars.models.Vendor
 import kotlinx.coroutines.launch
 
 @Composable
-fun CarForm(viewModel: MainViewModel, navController: NavController, cId: String = "") {
+fun CarForm(viewModel: MainViewModel,
+            navController: NavController,
+            cId: String = "") {
     val isDropDownExpanded = remember {
         mutableStateOf(false)
     }

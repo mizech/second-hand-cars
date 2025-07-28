@@ -86,9 +86,15 @@ fun NavView(viewModel: MainViewModel) {
                     navController = navController)
             }
             composable(route = Routes.VendorForm.name) { entry ->
-                val vId = entry.arguments?.getString("vId") ?: ""
+                val sVid = entry.arguments?.getString("vId") ?: ""
+                var lVid: Long = 0
+                try {
+                    lVid = sVid.toLong()
+                } catch (exception: Exception) {
+                    print(exception.message)
+                }
                 VendorForm(viewModel = viewModel,
-                            navController = navController)
+                            navController = navController, vId = lVid)
             }
             composable(route = Routes.CarDetails.name) { entry ->
                 val cId = entry.arguments?.getString("cId")

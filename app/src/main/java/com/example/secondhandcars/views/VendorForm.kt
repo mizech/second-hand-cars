@@ -1,5 +1,6 @@
 package com.example.secondhandcars.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -7,6 +8,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -18,16 +20,27 @@ import com.example.secondhandcars.models.Vendor
 import com.example.secondhandcars.viewmodels.MainViewModel
 import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun VendorForm(viewModel: MainViewModel, navController: NavController) {
+fun VendorForm(viewModel: MainViewModel,
+               navController: NavController,
+               vId: Long) {
     var cScope = rememberCoroutineScope()
 
-    var currName = remember{
+    var currName = remember {
         mutableStateOf("")
     }
 
     var currCountry = remember {
         mutableStateOf("")
+    }
+
+    if (vId != 0L) {
+        LaunchedEffect(key1 = true) {
+            val vendor = viewModel.getVendorByID(id = vId)
+            currName.value = vendor.name
+            currCountry.value = vendor.country
+        }
     }
 
     Column(modifier = Modifier.fillMaxSize().padding(top = 100.dp),
