@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
@@ -58,7 +59,9 @@ fun CarDetails(viewModel: MainViewModel, cId: String,
 
     Column(verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()) {
+        modifier = Modifier.fillMaxSize()
+            .padding(horizontal = 25.dp)
+            .padding(bottom = 6.dp)) {
         if (isDeleteActive.value == true) {
             BasicAlertDialog(onDismissRequest = {
                 isDeleteActive.value = false
@@ -90,15 +93,10 @@ fun CarDetails(viewModel: MainViewModel, cId: String,
             }
         }
 
-        Text(text = car.value.name, fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 28.dp))
-        Text(text = formatter.formatDouble(value = car.value.price),
-            fontSize = 24.sp)
-        Spacer(modifier = Modifier)
-
+        LabeledContent(label = "Name", value = car.value.name)
+        LabeledContent(label = "Price",
+            value = formatter.formatDouble(value = car.value.price))
         Row {
-            Spacer(modifier = Modifier.weight(1f))
             Button(onClick = {
                 isDeleteActive.value = true
             }, modifier = Modifier.weight(2f)) {
@@ -114,7 +112,6 @@ fun CarDetails(viewModel: MainViewModel, cId: String,
                 Text(text = "Edit",
                     fontSize = 24.sp)
             }
-            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
