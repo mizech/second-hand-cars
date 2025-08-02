@@ -49,7 +49,6 @@ fun VendorDetails(viewModel: MainViewModel, vId: String = "",
             vendor.value = viewModel.getVendorByID(id = vId.toLong())
         }
 
-        // Todo: Implement Edit-functionality
         if (isDeleteActive.value == true) {
             BasicAlertDialog(onDismissRequest = {
                 isDeleteActive.value = false

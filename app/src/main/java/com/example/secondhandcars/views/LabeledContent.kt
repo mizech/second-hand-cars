@@ -13,11 +13,11 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun LabeledContent(label: String, value: String) {
-    Card(modifier = Modifier.fillMaxWidth()) {
+    Card(modifier = Modifier.fillMaxWidth().padding(bottom = 15.dp)) {
         Column(modifier = Modifier
             .padding(horizontal = 8.dp)
             .padding(vertical = 12.dp)) {
-            Text(text = label, fontSize = 18.sp)
+            Text(text = label, fontSize = 20.sp)
             Text(text = value, fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier)
