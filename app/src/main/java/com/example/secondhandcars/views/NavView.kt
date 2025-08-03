@@ -109,7 +109,9 @@ fun NavView(viewModel: MainViewModel) {
                 val vId = entry.arguments?.getString("vId")
                 vId?.let { vId ->
                     VendorDetails(viewModel = viewModel,
-                        navController = navController, vId = vId)
+                                navController = navController,
+                                vId = vId,
+                                innerPadding = innerPadding)
                 }
             }
         }

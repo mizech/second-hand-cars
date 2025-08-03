@@ -2,6 +2,7 @@ package com.example.secondhandcars.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,11 +33,21 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VendorDetails(viewModel: MainViewModel, vId: String = "",
-                  navController: NavController) {
-    Column(verticalArrangement = Arrangement.SpaceAround,
-    horizontalAlignment = Alignment.CenterHorizontally,
-    modifier = Modifier.fillMaxSize()) {
+fun VendorDetails(
+    viewModel: MainViewModel,
+    vId: String = "",
+    navController: NavController,
+    innerPadding: PaddingValues
+) {
+    Column(
+        verticalArrangement = Arrangement.SpaceAround,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = innerPadding.calculateTopPadding())
+            .padding(horizontal = 25.dp)
+            .padding(bottom = 6.dp)
+    ) {
         val cscope = rememberCoroutineScope()
 
         var vendor = remember {
@@ -54,13 +65,19 @@ fun VendorDetails(viewModel: MainViewModel, vId: String = "",
                 isDeleteActive.value = false
             }) {
                 Surface(shape = RoundedCornerShape(size = 12.dp)) {
-                    Column(modifier = Modifier.padding(20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(text = "Vendor and all related cars become deleted.",
+                    Column(
+                        modifier = Modifier.padding(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Vendor and all related cars become deleted.",
                             fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold)
-                        Text(text = "Are you sure?",
-                            fontSize = 18.sp)
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Are you sure?",
+                            fontSize = 18.sp
+                        )
                         Spacer(modifier = Modifier.padding(bottom = 12.dp))
                         OutlinedButton(onClick = {
                             cscope.launch {
@@ -68,9 +85,11 @@ fun VendorDetails(viewModel: MainViewModel, vId: String = "",
                                 navController.navigate(Routes.VendorsList.name)
                             }
                         }, modifier = Modifier.fillMaxWidth()) {
-                            Text(text = "Delete",
+                            Text(
+                                text = "Delete",
                                 color = Color.Red,
-                                fontWeight = FontWeight.Bold)
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                         Spacer(modifier = Modifier.padding(bottom = 12.dp))
                         OutlinedButton(onClick = {
@@ -82,32 +101,50 @@ fun VendorDetails(viewModel: MainViewModel, vId: String = "",
                 }
             }
         }
-
-        Text(text = vendor.value.name, fontSize = 28.sp,
+        // Todo: Implement Vendor details-view.
+        // Todo: Add preview.
+        Text(
+            text = "Vendor details",
+            fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 28.dp))
-        Text(text = vendor.value.country,
-            fontSize = 24.sp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 12.dp)
+        )
+        Text(
+            text = vendor.value.name, fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 28.dp)
+        )
+        Text(
+            text = vendor.value.country,
+            fontSize = 24.sp
+        )
         Spacer(modifier = Modifier)
 
         Row {
-            Spacer(modifier = Modifier.weight(1f))
             Button(onClick = {
                 isDeleteActive.value = true
             }, modifier = Modifier.weight(2f)) {
-                Text(text = "Delete",
-                    fontSize = 24.sp)
+                Text(
+                    text = "Delete",
+                    fontSize = 24.sp
+                )
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(onClick = {
-                navController.navigate(Routes.VendorForm.name.replace(
-                    oldValue = "{vId}",
-                    newValue = vId))
+                navController.navigate(
+                    Routes.VendorForm.name.replace(
+                        oldValue = "{vId}",
+                        newValue = vId
+                    )
+                )
             }, modifier = Modifier.weight(2f)) {
-                Text(text = "Edit",
-                    fontSize = 24.sp)
+                Text(
+                    text = "Edit",
+                    fontSize = 24.sp
+                )
             }
-            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }

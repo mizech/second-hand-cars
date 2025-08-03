@@ -39,8 +39,9 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CarDetails(viewModel: MainViewModel, cId: String,
-               navController: NavController, modifier: Modifier = Modifier,
+fun CarDetails(viewModel: MainViewModel,
+               cId: String,
+               navController: NavController,
                innerPadding: PaddingValues) {
     val coroutineScope = rememberCoroutineScope()
     val formatter = Formatter()
