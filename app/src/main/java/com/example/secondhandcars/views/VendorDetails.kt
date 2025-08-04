@@ -1,5 +1,7 @@
 package com.example.secondhandcars.views
 
+import android.annotation.SuppressLint
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,13 +25,18 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.example.secondhandcars.models.Vendor
 import com.example.secondhandcars.viewmodels.MainViewModel
 import kotlinx.coroutines.launch
+import kotlin.getValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +47,7 @@ fun VendorDetails(
     innerPadding: PaddingValues
 ) {
     Column(
-        verticalArrangement = Arrangement.SpaceAround,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
@@ -101,8 +108,7 @@ fun VendorDetails(
                 }
             }
         }
-        // Todo: Implement Vendor details-view.
-        // Todo: Add preview.
+
         Text(
             text = "Vendor details",
             fontSize = 22.sp,
@@ -111,17 +117,8 @@ fun VendorDetails(
                 .fillMaxWidth()
                 .padding(bottom = 12.dp)
         )
-        Text(
-            text = vendor.value.name, fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 28.dp)
-        )
-        Text(
-            text = vendor.value.country,
-            fontSize = 24.sp
-        )
-        Spacer(modifier = Modifier)
-
+        LabeledContent(label = "Name", value = vendor.value.name)
+        LabeledContent(label = "Country", value = vendor.value.country)
         Row {
             Button(onClick = {
                 isDeleteActive.value = true
@@ -148,4 +145,5 @@ fun VendorDetails(
         }
     }
 }
+
 
