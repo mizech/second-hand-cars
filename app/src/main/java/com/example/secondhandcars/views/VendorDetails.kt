@@ -130,12 +130,7 @@ fun VendorDetails(
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(onClick = {
-                navController.navigate(
-                    Routes.VendorForm.name.replace(
-                        oldValue = "{vId}",
-                        newValue = vId
-                    )
-                )
+                navController.navigate(Routes.VendorForm.append(arg = vId))
             }, modifier = Modifier.weight(2f)) {
                 Text(
                     text = "Edit",

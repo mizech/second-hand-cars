@@ -66,9 +66,8 @@ fun VendorsList(viewModel: MainViewModel,
             LazyColumn {
                 items(items = vendorsList) {
                     Card(modifier = Modifier.padding(bottom = 12.dp).clickable {
-                        navController.navigate(Routes.VendorDetails.name.replace(
-                            oldValue = "{vId}",
-                            newValue = it.vid.toString()))
+                        navController.navigate(
+                            Routes.VendorDetails.append(arg = it.vid.toString()))
                     },
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
                         Row(horizontalArrangement = Arrangement.SpaceBetween,

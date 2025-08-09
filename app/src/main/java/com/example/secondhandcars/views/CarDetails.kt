@@ -117,9 +117,9 @@ fun CarDetails(viewModel: MainViewModel,
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(onClick = {
-                navController.navigate(Routes.CarForm.name.replace(
-                    oldValue = "{cId}",
-                    newValue = car.value.cid.toString()))
+                navController.navigate(
+                    Routes.CarForm.append(
+                        arg = car.value.cid.toString()))
             }, modifier = Modifier.weight(2f)) {
                 Text(text = "Edit",
                     fontSize = 24.sp)
