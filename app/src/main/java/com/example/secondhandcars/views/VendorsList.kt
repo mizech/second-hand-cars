@@ -3,6 +3,7 @@ package com.example.secondhandcars.views
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -40,49 +41,53 @@ fun VendorsList(viewModel: MainViewModel,
     LaunchedEffect(key1 = true) {
         vendorsList.addAll(viewModel.getAllVendors())
     }
-
-    Scaffold { innerPadding ->
-        Column(verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
-                .padding(horizontal = 20.dp)
-                .padding(top = 100.dp)) {
-            Text(text = "Available vendors",
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                textAlign = TextAlign.Start)
-            Row(horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()) {
-                Text(text = "Name",
+    Box {
+        Scaffold { innerPadding ->
+            Column(verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize()
+                    .padding(horizontal = 20.dp)
+                    .padding(top = 100.dp)) {
+                Text(text = "Available vendors",
+                    fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                    modifier = Modifier.padding(bottom = 16.dp))
-                Text(text = "Country",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold)
-            }
-            LazyColumn {
-                items(items = vendorsList) {
-                    Card(modifier = Modifier.padding(bottom = 12.dp).clickable {
-                        navController.navigate(
-                            Routes.VendorDetails.append(arg = it.vid.toString()))
-                    },
-                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
-                        Row(horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
-                                .padding(vertical = 12.dp)
-                                .padding(horizontal = 10.dp)) {
-                            Text(text = it.name,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier)
-                            Text(text = it.country,
-                                modifier = Modifier)
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    textAlign = TextAlign.Start)
+                Row(horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()) {
+                    Text(text = "Name",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(bottom = 16.dp))
+                    Text(text = "Country",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold)
+                }
+                LazyColumn {
+                    items(items = vendorsList) {
+                        Card(modifier = Modifier.padding(bottom = 12.dp).clickable {
+                            navController.navigate(
+                                Routes.VendorDetails.append(arg = it.vid.toString()))
+                        },
+                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
+                            Row(horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth()
+                                    .padding(vertical = 12.dp)
+                                    .padding(horizontal = 10.dp)) {
+                                Text(text = it.name,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier)
+                                Text(text = it.country,
+                                    modifier = Modifier)
+                            }
                         }
                     }
                 }
             }
+        }
+        AddEntityButton(navController = navController) {
+            Routes.VendorForm.append(arg = "")
         }
     }
 }

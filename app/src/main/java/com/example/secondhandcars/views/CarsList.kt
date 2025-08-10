@@ -97,17 +97,8 @@ fun CarList(viewModel: MainViewModel,
                 VerticalDivider()
             }
         }
-        Column(horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.Bottom,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(end = 30.dp, bottom = 30.dp)) {
-            FloatingActionButton(onClick = {
-                navController.navigate(
-                    Routes.CarForm.append(arg = ""))
-            }) {
-                Icon(Icons.Filled.Add, "")
-            }
+        AddEntityButton(navController = navController) {
+            Routes.CarForm.append(arg = "")
         }
     }
 }
