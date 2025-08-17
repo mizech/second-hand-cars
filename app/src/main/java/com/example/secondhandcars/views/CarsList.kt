@@ -49,8 +49,6 @@ fun CarList(viewModel: MainViewModel,
     LaunchedEffect(key1 = true) {
         carList.addAll(viewModel.getAllCars())
     }
-    // Todo: Implement a generic List-View, with a list and a floating action, which is used for car and vendor.
-    // Todo: Implement a back-button within the navigation-bar.
 
     Box(contentAlignment = Alignment.Center) {
         Scaffold { innerPadding ->

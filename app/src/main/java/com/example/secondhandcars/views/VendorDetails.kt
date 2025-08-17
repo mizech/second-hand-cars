@@ -138,6 +138,8 @@ fun VendorDetails(
                 )
             }
         }
+        Spacer(modifier = Modifier.weight(1f))
+        BackButton(navController = navController)
     }
 }
 
